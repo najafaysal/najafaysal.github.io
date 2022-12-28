@@ -1,0 +1,678 @@
+---
+title: "Online Dating Survey - Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r}
+# Load libraries
+library(flexdashboard)
+library(tidyverse)
+library(highcharter)
+library(gt)
+library(htmltools)
+library(viridis)
+library(plotly)
+library(knitr)
+library(DT)
+library(fontawesome)
+library(rsconnect)
+#rsconnect::deployApp('~/Desktop/EDU/CSUSB/NEW/04 Fall 22/IST 6620 Business Analytics & Decision-making/online dating survey/online_dating/dashboard.Rmd') #deploying dashboard on the web using shinyapps.io
+# Load data head
+dating = read_csv("dating.csv")
+```
+
+# Overview
+
+## Column {data-width=250}
+
+### Total No. of Respondents
+```{r}
+valueBox(dim(dating)[1], icon = "ion-ios-paper", color = "cadetblue")
+
+# icon website: https://ionic.io/ionicons/v2/cheatsheet.html
+```
+### Female-Male Ratio
+```{r}
+total_f = dating%>%
+  filter(gender == "Female")%>%
+  nrow()
+
+# This is the total number of females in the dataset.
+
+total_f_per = total_f*100 / nrow(dating)
+total_f_per = paste0(round(total_f_per, digits = 0), '%')
+
+valueBox(total_f_per, icon = "ion-android-people", color = "coral")
+
+```
+
+### LGBTQ-Straight Ratio
+```{r}
+total_lgbtq = dating%>%
+  filter(orientation == "gay_lesbian" | orientation == "bi")%>%
+  nrow()
+# This is the total number of lgbtq in the dataset.
+
+total_lg_per = total_lgbtq*100 / nrow(dating)
+total_lg_per = paste0(round(total_lg_per, digits = 0), '%')
+valueBox(total_lg_per, icon = "ion-transgender", color = "darkgoldenrod")
+
+```
+
+### Gender Distribution
+
+```{r}
+p1 = dating%>%
+  ggplot(aes(x = gender, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  labs(x = "Gender", y = "Count")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+ggplotly(p1)
+```
+
+## Column {data-width=333.3}
+
+### Sexual Orientation
+
+```{r}
+p2 = dating%>%
+  ggplot(aes(x = orientation, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  labs(x = "Sexual Orientation", y = "Count")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+ggplotly(p2)
+
+```
+
+### Relationship Status
+
+```{r}
+p3 = dating%>%
+  filter(gender != "Non-binary")%>%
+  ggplot(aes(x = rel_status, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  labs(x="Relationship Status", y = "Count")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+ggplotly(p3)
+
+```
+
+## Column {data-width=333.3}
+
+### Dating App Usage
+
+```{r}
+p4 = dating%>%
+  ggplot(aes(x=da_usage))+
+  geom_bar(fill= "Blue", alpha=0.50)+
+  theme_bw()+
+  theme(panel.grid.major=element_blank(), panel.grid.minor = element_blank())+
+  labs(x= "Dating App Usership", y = "Count")
+ggplotly(p4)
+```
+
+### Dating App Usership Per Gender
+
+```{r}
+total_f = dating%>%
+  filter(gender == "Female")%>%
+  nrow()
+
+total_m = dating%>%
+  filter(gender == "Male")%>%
+  nrow()
+
+total_lgbtq = dating%>%
+  filter(orientation == "gay_lesbian" | orientation == "bi")%>%
+  nrow()
+
+total_str8 = dating%>%
+  filter(orientation == "straight")%>%
+  nrow()
+
+user_f = dating%>%
+  filter(da_usage == "User" & gender == "Female")%>%
+  nrow()*100/total_f
+user_f = round(user_f, digits = 2)
+
+user_m = dating%>%
+  filter(da_usage == "User" & gender == "Male")%>%
+  nrow()*100/total_m
+user_m = round(user_m, digits = 2)
+
+Usership = c("Female Users","Male Users")
+Usership_Percentage = c(user_f, user_m)
+
+usership_by_gender = data.frame(Usership, Usership_Percentage)%>%
+  ggplot(aes(x = Usership, y = Usership_Percentage))+
+  geom_col(fill = "purple", alpha = 0.5)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x= "Dating App Usership", y = "Percentage")# facet_wrap(~Usership)
+
+ggplotly(usership_by_gender)
+```
+
+
+
+# Gender Discoveries
+## Column {data-width=500}
+
+### Who should pay for the first date?
+
+```{r}
+p5 = dating%>%
+  filter(gender!= "Non-binary")%>%
+  ggplot(aes(x = pay, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  labs(x = "Who should pay?", y = "Count")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+ggplotly(p5)  
+```
+
+### Who is more picky while swiping?
+```{r}
+p8 = dating%>%
+  filter(gender != "Non-binary")%>%
+  ggplot(aes(x = picky, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Who is more picky?", y = "Count")
+ggplotly(p8)
+```
+
+## Column {data-width=500}
+
+### Who doesn’t want to be in a relationship?
+```{r}
+p6 = dating%>%
+  filter(rel_status=="Single")%>%
+  ggplot(aes(x = y_single, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  labs(x = "Why are you single?", y = "Count")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+ggplotly(p6) 
+```
+
+### Who finds it easier to match and go on dates?
+```{r}
+p7 = dating%>%
+  filter(gender != "Non-binary")%>%
+  ggplot(aes(x = dates, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Who finds it easier?", y = "Count")
+ggplotly(p7)
+```
+
+
+
+# Appearnances & Confidence
+
+## Column {data-width=500, .tabset}
+
+### How did respondents rate themselves?
+
+```{r}
+p9 = dating%>%
+  ggplot(aes(x = rate_yourself, fill = gender))+
+  geom_histogram(binwidth = 1, alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "How did respondents rated their physical attractiveness?", y = "Count")
+ggplotly(p9)
+```
+
+### Averages Comparison?
+```{r}
+xyza = dating%>%
+  filter(orientation == "bi" | orientation == "gay_lesbian")%>%
+  group_by(orientation)%>%
+  summarize(Mean = mean(rate_yourself))
+xyzb = (xyza[1,2]+xyza[2,2])/2
+
+x10c = dating%>%
+  filter(orientation == "straight")%>%
+  group_by(orientation)%>%
+  summarize(Mean = mean(rate_yourself))
+
+x10d = x10c[1,2]+1-1
+
+x11 = dating%>%
+  filter(rel_status == "InRelation")%>%
+  summarize(Mean = mean(rate_yourself))
+
+x11 = x11 + 1 -1
+
+x11b = dating%>%
+  filter(rel_status == "Single")%>%
+  summarize(Mean = mean(rate_yourself))
+x11b = x11b + 1 -1
+
+x13 = dating%>%
+  filter(gender == "Male")%>%
+  summarize(Mean = mean(rate_yourself))
+
+x13 = x13 + 1 -1
+
+x15 = dating%>%
+  filter(gender == "Female")%>%
+  summarize(Mean = mean(rate_yourself))
+
+x15 = x15 + 1 -1
+
+x14 = dating%>%
+  filter(da_usage == "User")%>%
+  summarize(Mean = mean(rate_yourself))
+
+x14 = x14 + 1 -1
+
+x16 = dating%>%
+  filter(rel_status == "InRelation")%>%
+  summarize(Mean = mean(rate_yourself))
+
+x16 = x16 + 1 -1
+
+avg_comparison_df = rbind(xyzb, x10d, x11, x11b, x13, x15, x14, x16) 
+avg_comparison_df%>%
+  mutate("Category" = c("LGBTQ", "Straight", "In-Relationship", "Single","Males", "Females","DatingApp Users", "DatingApp Non-Users"))%>%
+  ggplot(aes(x = reorder(Category, +Mean), y = Mean))+ 
+  geom_col(fill = "blue", alpha = 0.5)+
+  coord_flip()+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  geom_text(aes(label = round(Mean,digits = 2)), vjust = 0.5)+
+  labs(x = "Category", y = "Avg Rating")
+
+```
+
+
+## Column {data-width=250}
+### LGBTQ Average
+
+```{r}
+
+lg_rating = gauge(xyzb[1,1], 
+                    min = 0, 
+                    max = 10,
+                    label = "Avg. Self Rating",
+                    abbreviate = TRUE,
+                    abbreviateDecimals = 2,
+                    gaugeSectors(success = c(7,10),
+                                 warning = c(6,7),
+                                 danger = c(0,6),
+                                 colors = c("green", "gold", "red")))
+
+lg_rating
+```
+
+
+### In-relationship Average
+
+```{r}
+
+rel_rating = gauge(x11[1,1], 
+                    min = 0, 
+                    max = 10,
+                    label = "Avg. Self Rating",
+                    abbreviate = TRUE,
+                    abbreviateDecimals = 2,
+                    gaugeSectors(success = c(7,10),
+                                 warning = c(6,7),
+                                 danger = c(0,6),
+                                 colors = c("green", "gold", "red")))
+
+rel_rating
+```
+
+
+### Male Average
+
+
+```{r}
+
+male_rating = gauge(x13[1,1], 
+                    min = 0, 
+                    max = 10,
+                    label = "Avg. Self Rating",
+                    abbreviate = TRUE,
+                    abbreviateDecimals = 2,
+                    gaugeSectors(success = c(7,10),
+                                 warning = c(6,7),
+                                 danger = c(0,6),
+                                 colors = c("green", "gold", "red")))
+
+male_rating
+```
+
+### Dating App Users Average
+
+```{r}
+
+user_rating = gauge(x14[1,1], 
+                    min = 0, 
+                    max = 10,
+                    label = "Avg. Self Rating",
+                    abbreviate = TRUE,
+                    abbreviateDecimals = 2,
+                    gaugeSectors(success = c(7,10),
+                                 warning = c(6,7),
+                                 danger = c(0,6),
+                                 colors = c("green", "gold", "red")))
+
+user_rating
+```
+
+## Column {data-width=250}
+
+### Straight Average
+
+```{r}
+
+st_rating = gauge(x10d[1,1], 
+                    min = 0, 
+                    max = 10,
+                    label = "Avg. Self Rating",
+                    abbreviate = TRUE,
+                    abbreviateDecimals = 2,
+                    gaugeSectors(success = c(7,10),
+                                 warning = c(6,7),
+                                 danger = c(0,6),
+                                 colors = c("green", "gold", "red")))
+
+st_rating
+```
+
+
+### Single Average
+
+```{r}
+
+sngl_rating = gauge(x11b[1,1], 
+                    min = 0, 
+                    max = 10,
+                    label = "Avg. Self Rating",
+                    abbreviate = TRUE,
+                    abbreviateDecimals = 2,
+                    gaugeSectors(success = c(7,10),
+                                 warning = c(6,7),
+                                 danger = c(0,6),
+                                 colors = c("green", "gold", "red")))
+
+sngl_rating
+```
+
+
+### Female Average
+
+```{r}
+
+fm_rating = gauge(x15[1,1], 
+                    min = 0, 
+                    max = 10,
+                    label = "Avg. Self Rating",
+                    abbreviate = TRUE,
+                    abbreviateDecimals = 2,
+                    gaugeSectors(success = c(7,10),
+                                 warning = c(6,7),
+                                 danger = c(0,6),
+                                 colors = c("green", "gold", "red")))
+
+fm_rating
+```
+
+
+### Dating App Non-Users Average
+
+```{r}
+
+non_user_rating = gauge(x16[1,1], 
+                    min = 0, 
+                    max = 10,
+                    label = "Avg. Self Rating",
+                    abbreviate = TRUE,
+                    abbreviateDecimals = 2,
+                    gaugeSectors(success = c(7,10),
+                                 warning = c(6,7),
+                                 danger = c(0,6),
+                                 colors = c("green", "gold", "red")))
+
+non_user_rating
+```
+
+
+# Body Types
+
+## Column {data-width=500}
+
+### Which of the following body types straight women find most attractive?
+
+```{r echo=FALSE, out.width = "50%"}
+knitr::include_graphics("men_bt.png", error = FALSE)
+```
+
+###
+
+```{r}
+body_type_f = dating%>%
+  filter(gender == "Female", body_types == "Endomorph" | body_types == "Mesomorph" | body_types == "Ectomorph")%>%
+  ggplot(aes(x = body_types))+
+  geom_bar(fill = "Blue", alpha = 0.5)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Body Types", y = "Count")
+ggplotly(body_type_f)
+```
+
+## Column {data-width=500}
+
+### Which of the following body types straight men find most attractive?**
+
+```{r echo=FALSE, out.width = "50%"}
+knitr::include_graphics("women_bt.png", error = FALSE)
+```
+
+###
+```{r}
+body_type_m = dating%>%
+  filter(gender == "Male", body_types == "Hour Glass" | body_types == "Inverted Triangle" | body_types == "Oval"| body_types == "Triangle"| body_types == "Rectangle")%>%
+  ggplot(aes(x = body_types))+
+  geom_bar(fill = "Red", alpha = 0.5)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Body Types", y = "Count")
+ggplotly(body_type_m)
+```
+
+
+
+# Apps
+
+## Column {data-width=350, .tabset}
+
+### Easiest to use
+
+```{r}
+app_names = c("SnapChat", "Instagram","Tiktok","Tinder","Hinge","Bumble")
+easy_score = 3
+
+app_compare = data.frame(app_names, easy_score)
+
+total_snap_easy = sum(dating$snap_easy)
+total_insta_easy = sum(dating$insta_easy)
+total_tik_easy = sum(dating$tik_easy)
+total_tin_easy = sum(dating$tin_easy)
+total_hin_easy = sum(dating$hin_easy)
+total_bum_easy = sum(dating$bum_easy)
+
+app_compare_easy = app_compare %>%
+  mutate(easy_score = ifelse(app_names == "SnapChat", total_snap_easy, 
+                       ifelse(app_names == "Instagram", total_insta_easy, 
+                        ifelse(app_names == "Tiktok", total_tik_easy,
+                         ifelse(app_names == "Tinder", total_tin_easy,
+                          ifelse(app_names == "Hinge", total_hin_easy,
+                           ifelse(app_names == "Bumble", total_bum_easy, app_names)))))))
+
+easy_score2 = as.integer(app_compare_easy$easy_score)
+
+p13 = app_compare_easy%>%
+  ggplot(aes(x=app_names, y = easy_score2))+
+  geom_col(fill = "Blue", alpha = 0.5)+ 
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Apps", y = "Score")
+  
+ggplotly(p13) 
+```
+
+### Most time spent
+
+```{r}
+total_snap_time = sum(dating$snap_time)
+total_insta_time = sum(dating$insta_time)
+total_tik_time = sum(dating$tik_time)
+total_tin_time = sum(dating$tin_time)
+total_hin_time = sum(dating$hin_time)
+total_bum_time = sum(dating$bum_time)
+
+app_compare_time = app_compare_easy %>%
+  mutate(time_score = ifelse(app_names == "SnapChat", total_snap_time, 
+                       ifelse(app_names == "Instagram", total_insta_time, 
+                        ifelse(app_names == "Tiktok", total_tik_time,
+                         ifelse(app_names == "Tinder", total_tin_time,
+                          ifelse(app_names == "Hinge", total_hin_time,
+                           ifelse(app_names == "Bumble", total_bum_time, app_names)))))))
+
+time_score2 = as.integer(app_compare_time$time_score)
+
+p14 = app_compare_time%>%
+  ggplot(aes(x=app_names, y = time_score2))+geom_col(fill = "Green", alpha = 0.5)+ 
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Apps", y = "Score")
+
+ggplotly(p14)
+```
+
+### Most popular dating app
+
+```{r}
+total_snap_dating = sum(dating$snap_dating)
+total_insta_dating = sum(dating$insta_dating)
+total_tik_dating = sum(dating$tik_dating)
+total_tin_dating = sum(dating$tin_dating)
+total_hin_dating = sum(dating$hin_dating)
+total_bum_dating = sum(dating$bum_dating)
+
+app_compare_dating = app_compare_time %>%
+  mutate(dating_score = ifelse(app_names == "SnapChat", total_snap_dating, 
+                       ifelse(app_names == "Instagram", total_insta_dating, 
+                        ifelse(app_names == "Tiktok", total_tik_dating,
+                         ifelse(app_names == "Tinder", total_tin_dating,
+                          ifelse(app_names == "Hinge", total_hin_dating,
+                           ifelse(app_names == "Bumble", total_bum_dating, app_names)))))))
+
+dating_score2 = as.integer(app_compare_dating$dating_score)
+
+p15 = app_compare_dating%>%
+  ggplot(aes(x=app_names, y = dating_score2))+geom_col(fill = "Red", alpha = 0.5)+ 
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Apps", y = "Score")
+
+ggplotly(p15)
+```
+
+## Column {data-width=350}
+
+### Who likes swiping more?
+
+```{r}
+p16 = dating%>%
+  filter(gender!="Non-binary")%>%
+  ggplot(aes(x=enj_swip, fill = gender))+geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Do you enjoy swiping to find a match", y = "Score")
+ggplotly(p16)
+```
+
+
+
+# Sentiment
+
+## Column {data-width=500}
+
+### From those in a relationship, how many met online vs offline?
+
+```{r}
+p17 = dating%>%
+  filter(met_online == "Online" | met_online == "Offline")%>%
+  ggplot(aes(x = met_online, fill = da_usage))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "How did you meet?", y = "Score")
+ggplotly(p17)
+```
+
+### How many recommend dating apps to a friend?
+
+```{r}
+p18 = dating%>%
+  filter(gender != "Non-binary")%>%
+  ggplot(aes(x = rec_friend, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Would you recommend dating apps to a friend?", y = "Score")
+ggplotly(p18)
+```
+
+## Column {data-width = 500}
+
+### Do dating app users enjoy swiping to find a match?
+
+```{r}
+p20 = dating%>%
+  filter(da_usage == "User")%>%
+  ggplot(aes(x = da_usage, fill = enj_swip))+geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Dating App Users | Enjoy Swiping", y = "Score")
+ggplotly(p20)
+```
+
+
+# Ref: Cleaned Data
+## Column {data-width=1000, data-height = 1500}
+### 1/3
+```{r}
+dating%>%
+  select(enj_swip:body_types)%>%
+  datatable()
+```
+### 2/3
+```{r}
+dating%>%
+  select(rate_yourself:tin_time)%>%
+  datatable()
+```
+
+### 3/3
+```{r}
+dating%>%
+  select(tin_dating:con_level)%>%
+  datatable()
+```
+

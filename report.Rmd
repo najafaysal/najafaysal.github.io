@@ -1,0 +1,1034 @@
+---
+title: "Online Dating Survey - Report"
+author: 'Naja Faysal'
+date: "12/2/2022"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Load libraries
+library(tidyverse)
+library(highcharter)
+library(gt)
+library(htmltools)
+library(viridis)
+library(png)
+library(patchwork)
+library(ggplot2)
+library(DT)
+library(flexdashboard)
+library(plotly)
+
+```
+
+## ************************************************************
+
+### 1. Executive Summary
+As humans, we come back and again, regardless of our philosophical & spiritual background, to the realization that the three major areas governing one’s life are Health, Wealth, and Love. Our aspirations, emotions, and desires all stem from one or the other, or all combined, if we remove any, life ceases to be perfect and fulfilling.
+
+This study attempts to address modern-day Love. Most of us learn about Love from movies, where the protagonists almost always get involved romantically. Love that we know usually follows a shared emotional experience. This emotional experience could be a wild exotic adventure like fighting a super villain together, or capturing a serial killer…; or it could simply be a little hitchhiking trip or overcoming work challenges. We’ve never been told that love is attained by checking profile photos, swiping right, getting matched by computer algorithms, and thinking about who should pay the bill on the first date. Yet, thousands if not millions of people around the world are finding love on these apps. 
+
+We wanted to know:
+
+* What is the current general sentiment on dating app adoption? Do people enjoy them and find them useful?
+
+* What do the different genders think and how do they behave within the online dating context?
+
+* Are their preferred body types that determine physical attractiveness?
+
+* What are the differences between the apps most commonly used nowadays?  
+
+* What affects one’s self-confidence in physical attractiveness?
+
+All of the above questions have social and business implications our study hopes to address. So, we conducted a survey and asked CSUSB students to complete it. The students loved responding to the survey questions, they find it entertaining and interesting. We received comments like “I wish we have more surveys like that” and “very.. very interesting survey”. This comes to show that young adults are struggling to navigate such matters, and genders are eager to understand one another, thus we wanted to bridge these gaps by making the findings of this study public. 
+
+In addition to the interesting insights we discovered throughout this study (ex: there are more bisexual women than bisexual men, a lot of single women don’t want to be in a relationship, LGBTQ have the highest self-confidence, and social media is equally used for dating as dating apps), the study also found essential business implications for “Bumble” or any dating app seeking to improve its service (ex: the negative sentiment about swiping, and the importance of transforming dating apps roles from merely matching people to a new category of social media that includes educational content and dating coaching.
+
+The shortcoming of this survey revolved around questions we missed asking or certain question types or formats that could be done better. In addition, we didn’t have the resources to reach and collect more respondents, we only got around 250 respondents, not enough to make statistical scientific conclusions. 
+
+### 2. Introduction
+
+#### 2.1 The Over-arching Purpose
+
+The over-arching purpose of conducting research on online dating is two-folded: from one end, the more we know how people behave, the more we can build the tools to help them find love, thus creating business opportunities... On another, making the findings of such research public will hopefully help people navigate gender differences in an attempt to understand, build bridges and make love & relationships easier to obtain and maintain.
+
+
+#### 2.2 What? & How?
+
+Online dating, internet dating, virtual dating, and mobile app dating refer to the phenomena where people use the internet to search for and interact with potential romantic or sexual partners. Companies that provide such services usually use a profile-based with various communications functionalists. Users create profiles on these websites or apps and provide personal information as well as pictures of themselves, users can also view profiles of the gender/orientation of other users they wish to date, and based on their information they decide on whether to initiate contact or not. It is basically a marketplace where people shop for potential lovers and try to sell themselves to desired ones. Some apps allow direct messaging but most of them don't (in their free version at least), the only way is to "swipe right" or "like" the profile of the person you are interested in. The app or website algorithm matches people together at the discretion of the company that builds the website or app. Most of these companies are trying to monetize their services, by limiting the number of "swipes" a person can make per day and offering "profile boosts" in exchange for subscriptions to their premium paid versions. Once a match is created, then parties can exchange messages and agree to meet up for a date.   
+(ref: https://en.wikipedia.org/wiki/Online_dating_service)
+
+
+#### 2.3 Industry Growth
+
+In 2016, Consumer Reports surveyed around 115,000 online dating service subscribers across multiple platforms and found that 44% found a romantic partner via using these services. This is a major change in society. It implies that the dependency on online dating services to find a romantic partner is only expected to grow as algorithms and apps continue to improve. A 2005 study of data collected by the Pew Internet & American Life Project found that online dating users are usually more tech-savvy than non-users, which means it's going to be more popular among the younger generation. Additionally, between 2005 and 2015, the same study indicates that the sentiment towards online dating has improved by 15-20%, especially in California in 2022 where dating apps barely hold any negativity and are now accepted as means for good and people aren't shy to admit using them. 
+(ref: 
+https://www.consumerreports.org/dating-relationships/online-dating-guide-match-me-if-you-can/
+chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.pewresearch.org/internet/wp-content/uploads/sites/9/media/Files/Reports/2005/PIP_Teens_Tech_July2005web.pdf.pdf)
+
+
+#### 2.4 Implications on Society
+
+As the adoption of dating apps continue to increase within society, we have to ask ourselves the following important questions:
+
+* Is it helping people find partners?
+
+* Is it increasing or decreasing the lifespan of a relationship?
+
+* Is it improving or impairing the quality of life of adults?
+
+* Is it causing a "Choice overload" (a cognitive impairment that makes it difficult for people to make decisions when there are too many options)?
+
+* Could it be the reason why people are choosing to get married less than ever? For example, in 1960, 72% of adults in the US were married compared to 2015's 51%.
+
+* Could it also be the reason why people are less committed to their partners/spouses?
+
+
+#### 2.5 Intended Audience
+
+* Online dating, as a business sector, where this research can hopefully inspire new improvements, features, and products that further enhance human connection. 
+
+* Anyone who is curious about human psychology and behavior, could be also industries that benefit from this knowledge to generate ideas that connect brands with people like the marketing sector.
+
+
+#### 2.6 Business Overview
+
+Bumble is one of many online dating apps that are very popular lately. The company which was founded by a woman is known for supporting, advocating, and empowering women to make the first move. Bumble uses the act of swiping right/left to match with others. The main difference between Bumble and other dating apps is that in a heterosexual pairing, the woman will need to make the first move and send a message to the man. 
+
+Bumble is using this feature to avoid the overwhelming number of unwanted messages women generally receive on dating apps, and keep them in control. Bumble also supports all sexual orientations, genders, and other self-identification. Bumble is redefining what an online dating app should be and is believed to be a movement rather than an app. According to Bumble.com:
+
+>“Bumble is more than an app, it’s a movement. We encourage integrity, kindness, equality, confidence, and respect during all stages of any relationship - whether online or offline. Bumble is where people go to learn how to establish and maintain healthier connections” 
+
+
+
+#### 2.7 The Business Model
+
+Bumble uses a website and a mobile application as platforms to allow users to match with each other based on what they are looking for. Bumble offers a variety of options for users if they want to date through `Bumble date`, if they want to socialize through `Bumble BFF`, or if they want to simply network for business purposes through `Bumble Bizz`. In either of these modes, Bumble uses the swipe right/left activity to match people within the same area or those that have the same interest, and as mentioned above, the only difference from other apps is that Bumble makes women responsible for making the first move. Members are able to use basic services for free, but for additional features such as `Beeline`, `Backtrack` and `SuperSwipe` users will need to pay a subscription fee, and that's how Bumble generates money. 
+
+Bumble is using what is called a ***Freemium Business Model***, where the company is offering basic services for free, and charges for premium services. Users can create their profile for free, as long as they are 18 years old or older. The main advantage of this business model is that it creates the network effect, where the free basic service attracts members, and those members will bring other members to the app. 
+
+To get perspective on the size of the business, since its launch, Bumble has 75+ million users across 150 countries. In 2018, Bumble generated $162 million in revenues. (Ref: https://shakuro.com/blog/how-much-does-an-app-like-bumble-cost)
+
+
+#### 2.8 Bumble Challenges 
+
+The constant risk for dating apps is to grow out of trend. The market witnessed the rise and fall of many dating services companies. Here is when these companies started:
+
+Year      |   Company
+----------|------------
+  1995    |   Match.com
+  2000    |   eHarmony
+  2003    |   Myspace and Plenty of Fish
+  2004    |   Facebook and OkCupid
+  2007    |   Zoosk 
+  2012    |   Tinder & Hinge
+  2014    |   Bumble
+
+
+Therefore, Bumble must remain vigilant and watch the pulse of its user base. Understanding their “needs”, “wants”, preferences, attitudes, and behaviors, as well as listening to what the online dating users say and taking action to improve. Oftentimes, as companies grow fast and large, they start to lack the speed and agility required to remain competitive and to be able to bend and not break.  
+
+### 3. Objectives
+
+The objectives of this project are to:
+
+* Shed light on the gender-based behavioral differences when it comes to dating apps in order for Bumble to be adaptive to their different needs and wants.
+
+* Discover the level of confidence in one's physical attractiveness among the young generation at universities, in order to create content that aids self-development, confidence-building, and growth. 
+
+* Discover preferred body types among the new generation to help the algorithms perform better matching and not to assume preferences.
+
+* Discover the *popularity* and *ease of use* between the most popular social media and dating apps to see if some features could be borrowed to improve Bumble users' experience. 
+
+* Discover the general sentiment of online dating among university students to see if dating apps in general and bumble in specific are losing or gaining popularity.
+
+
+
+### 4. Data Collection
+
+We built a survey with a list of questions about Online Dating and collected around 250 responses mostly from CSUSB students, we did our best to reach a variety of people from different ethnicity, gender, age group, sexual orientation...etc  
+
+```{r echo=FALSE, out.width = "100%"}
+knitr::include_graphics("survey_screenshots.png", error = FALSE)
+```
+
+We reached students by sending them emails, posting the survey link on group chats, printing the survey QR code on small papers (as displayed below), and distributing them randomly to all students walking by or sitting in the cafeteria. Here is the survey link that not only shows the reader the questions but also offers basic summaries of the data once submitted. (ref: https://forms.gle/RKXZ6ZkKL9wtQfTZ8) 
+
+
+```{r echo=FALSE, out.width = "50%"}
+knitr::include_graphics("printed-flyer.jpg", error = FALSE)
+```
+
+### 5. Data Processing
+
+#### 5.1 Data Cleaning
+Following the development and distribution of the survey, and after acquiring 250+ responses to the survey, we exported the .csv file and stored it in our working directory by the name of "OD_data.csv". 
+
+In the data cleaning stage, we want to load & make a copy of the dataset, select & renaming variables, rename observations, and write a new .csv file with cleaned data ready for exploration.
+
+Here you will see the head of the cleaned data:
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+od_data = read_csv("OD_Data.csv") # Calling and making a copy of the latest data set
+dating = as.data.frame(od_data) %>% 
+  select('Do you enjoy the activity of swiping to find a match?', 
+         'Do you agree with these statements? [Snap chat]', 
+         'Do you agree with these statements? [Instagram]', 
+         'Do you agree with these statements? [TikTok]', 
+         'Do you agree with these statements? [Tinder]', 
+         'Do you agree with these statements? [Hinge]', 
+         'Do you agree with these statements? [Bumble]',
+         'What is your gender?', 
+         "What is your sexual orientation?",
+         'What is your relationship status?', 
+         'Which statement best describe your dating apps usage?', 
+         'Why are you single?', 
+         'Would you recommend a dating app to a friend to help them find a romantic partner?', 
+         'How did you meet your significant other?',"On dating apps, which gender do you think find it easier to match and go on dates?","In a heterosexual context, which gender should pay for the first date?","In a heterosexual context, which gender do you think is more selective or picky when it comes to the people they swipe right on / approve off?","Which of the following body types is the most attractive to you?", "How do you rate your own physical appearances & attractiveness?")%>% # Selecting the variables we need.
+  rename(enj_swip = 'Do you enjoy the activity of swiping to find a match?', 
+         orientation ='What is your sexual orientation?',
+         snap_chat = 'Do you agree with these statements? [Snap chat]',
+         insta = 'Do you agree with these statements? [Instagram]', 
+         tiktok = 'Do you agree with these statements? [TikTok]', 
+         tinder = 'Do you agree with these statements? [Tinder]', 
+         hinge = 'Do you agree with these statements? [Hinge]', 
+         bumble = 'Do you agree with these statements? [Bumble]', 
+         gender = 'What is your gender?', 
+         rel_status = 'What is your relationship status?', 
+         da_usage = 'Which statement best describe your dating apps usage?', y_single = 'Why are you single?', 
+         rec_friend = 'Would you recommend a dating app to a friend to help them find a romantic partner?', 
+         met_online = 'How did you meet your significant other?',
+         dates = "On dating apps, which gender do you think find it easier to match and go on dates?", 
+         picky = "In a heterosexual context, which gender do you think is more selective or picky when it comes to the people they swipe right on / approve off?", 
+         pay = "In a heterosexual context, which gender should pay for the first date?", 
+         body_types = "Which of the following body types is the most attractive to you?", 
+         rate_yourself = "How do you rate your own physical appearances & attractiveness?")%>%  # Renaming the variables to shorter manageable names.
+  mutate(snap_chat = ifelse(snap_chat == "Easy to use","easy",
+          ifelse(snap_chat == "Easiest to use","easy",
+            ifelse(snap_chat == "Easy to use, Use for dating", "easy,dating",
+              ifelse(snap_chat == "Spend most of my time on","time",
+                ifelse(snap_chat == "Easiest to use, Use for dating","easy,dating",
+                  ifelse(snap_chat == "Easy to use, Spend most of my time on", "easy,time",
+                    ifelse(snap_chat == "Easiest to use, Spend most of my time on", 'easy,time',
+                      ifelse(snap_chat == "Easy to use, Spend most of my time on, Use for dating",'easy,time,dating',
+                        ifelse(snap_chat == "Easiest to use, Spend most of my time on, Use it for dating", 'easy,time,dating',
+                          ifelse(snap_chat == "Easy to use, Use it for dating", 'easy,dating', 
+                            ifelse(snap_chat == "Easiest to use, Use it for dating", 'easy,dating', 
+                              ifelse(snap_chat == "Spend most of my time on, Use it for dating", 'time,dating', 
+                                ifelse(snap_chat == "Spend most of my time on, Use for dating", 'time,dating', 
+                                  ifelse(snap_chat == "Use it for dating", 'dating', 
+                                    ifelse(snap_chat == "Use for dating", 'dating', snap_chat))))))))))))))))%>% 
+  mutate(insta = ifelse(insta == "Easy to use", 'easy', 
+            ifelse(insta == "Easiest to use", 'easy', 
+             ifelse(insta == "Easy to use, Use for dating", 'easy,dating', 
+              ifelse(insta == "Spend most of my time on", 'time', 
+               ifelse(insta == "Easiest to use, Use for dating", 'easy,dating', 
+                ifelse(insta == "Easy to use, Spend most of my time on", 'easy,time', 
+                 ifelse(insta == "Easiest to use, Spend most of my time on", 'easy,time',
+                  ifelse(insta == "Easy to use, Spend most of my time on, Use for dating", 'easy,time,dating',
+                   ifelse(insta == "Easiest to use, Spend most of my time on, Use it for dating", 'easy,time,dating',
+                    ifelse(insta == "Easy to use, Use it for dating", 'easy,dating', 
+                     ifelse(insta == "Easiest to use, Use it for dating", 'easy,dating',
+                      ifelse(insta == "Spend most of my time on, Use it for dating", 'time,dating',
+                       ifelse(insta == "Spend most of my time on, Use for dating", 'time,dating',
+                        ifelse(insta == "Use it for dating", 'dating',
+                         ifelse(insta == "Use for dating", 'dating', insta))))))))))))))))%>%
+  mutate(tiktok = ifelse(tiktok == "Easy to use", 'easy', 
+            ifelse(tiktok == "Easiest to use", 'easy', 
+              ifelse(tiktok == "Easy to use, Use for dating", 'easy,dating', 
+                ifelse(tiktok == "Spend most of my time on", 'time', 
+                  ifelse(tiktok == "Easiest to use, Use for dating", 'easy,dating', 
+                    ifelse(tiktok == "Easy to use, Spend most of my time on", 'easy,time', 
+                      ifelse(tiktok == "Easiest to use, Spend most of my time on", 'easy,time', 
+                        ifelse(tiktok == "Easy to use, Spend most of my time on, Use for dating", 'easy,time,dating', 
+                          ifelse(tiktok == "Easiest to use, Spend most of my time on, Use it for dating", 'easy,time,dating', 
+                            ifelse(tiktok == "Easy to use, Use it for dating", 'easy,dating', 
+                              ifelse(tiktok == "Easiest to use, Use it for dating", 'easy,dating', 
+                                ifelse(tiktok == "Spend most of my time on, Use it for dating", 'time,dating', 
+                                  ifelse(tiktok == "Spend most of my time on, Use for dating", 'time,dating', 
+                                    ifelse(tiktok == "Use it for dating", 'dating', 
+                                      ifelse(tiktok == "Use for dating", "dating", tiktok))))))))))))))))%>%
+  mutate(bumble = ifelse(bumble == "Easy to use", "easy",
+            ifelse(bumble == "Easiest to use", "easy", 
+              ifelse(bumble == "Easy to use, Use for dating", "easy,dating",
+                ifelse(bumble == "Spend most of my time on", "time",
+                  ifelse(bumble == "Easiest to use, Use for dating", "easy,dating",
+                    ifelse(bumble == "Easy to use, Spend most of my time on", "easy,time",
+                      ifelse(bumble == "Easiest to use, Spend most of my time on", "easy,time", 
+                        ifelse(bumble == "Easy to use, Spend most of my time on, Use for dating", "easy,time,dating", 
+                          ifelse(bumble == "Easiest to use, Spend most of my time on, Use it for dating", "easy,time,dating", 
+                            ifelse(bumble == "Easy to use, Use it for dating", "easy,dating", 
+                              ifelse(bumble == "Easiest to use, Use it for dating", "easy,dating",
+                                ifelse(bumble == "Spend most of my time on, Use it for dating", "time,dating", 
+                                  ifelse(bumble == "Spend most of my time on, Use for dating", "time,dating",
+                                    ifelse(bumble == "Use it for dating", "dating", 
+                                      ifelse(bumble == "Use for dating", "dating", bumble))))))))))))))))%>%
+  mutate(hinge = ifelse(hinge == "Easy to use", 'easy', 
+            ifelse(hinge == "Easiest to use", 'easy', 
+              ifelse(hinge == "Easy to use, Use for dating", 'easy,dating', 
+                ifelse(hinge == "Spend most of my time on", 'time',
+                  ifelse(hinge == "Easiest to use, Use for dating", 'easy,dating', 
+                    ifelse(hinge == "Easy to use, Spend most of my time on", 'easy,time',
+                      ifelse(hinge == "Easiest to use, Spend most of my time on", 'easy,time', 
+                        ifelse(hinge == "Easy to use, Spend most of my time on, Use for dating", 'easy,time,dating', 
+                          ifelse(hinge == "Easiest to use, Spend most of my time on, Use it for dating", 'easy,time,dating', 
+                            ifelse(hinge == "Easy to use, Use it for dating", 'easy,dating', 
+                              ifelse(hinge == "Easiest to use, Use it for dating", 'easy,dating', 
+                                ifelse(hinge == "Spend most of my time on, Use it for dating", 'time,dating',
+                                  ifelse(hinge == "Spend most of my time on, Use for dating", 'time,dating', 
+                                    ifelse(hinge == "Use for dating", 'dating', 
+                                      ifelse(hinge == "Use it for dating", 'dating', hinge))))))))))))))))%>%
+    mutate(tinder = ifelse(tinder == "Easy to use", 'easy', 
+            ifelse(tinder == "Easiest to use", 'easy', 
+              ifelse(tinder == "Easy to use, Use for dating", 'easy,dating', 
+                ifelse(tinder == "Spend most of my time on", 'time',
+                  ifelse(tinder == "Easiest to use, Use for dating", 'easy,dating', 
+                    ifelse(tinder == "Easy to use, Spend most of my time on", 'easy,time',
+                      ifelse(tinder == "Easiest to use, Spend most of my time on", 'easy,time', 
+                        ifelse(tinder == "Easy to use, Spend most of my time on, Use for dating", 'easy,time,dating', 
+                          ifelse(tinder == "Easiest to use, Spend most of my time on, Use it for dating", 'easy,time,dating', 
+                            ifelse(tinder == "Easy to use, Use it for dating", 'easy,dating', 
+                              ifelse(tinder == "Easiest to use, Use it for dating", 'easy,dating', 
+                                ifelse(tinder == "Spend most of my time on, Use it for dating", 'time,dating',
+                                  ifelse(tinder == "Spend most of my time on, Use for dating", 'time,dating', 
+                                    ifelse(tinder == "Use for dating", 'dating', 
+                                      ifelse(tinder == "Use it for dating", 'dating', tinder))))))))))))))))%>%
+  mutate(rel_status = ifelse(rel_status == "Been single for about two years", "Single",
+            ifelse(rel_status == "Been single for two years or more", "Single",
+              ifelse(rel_status == "Recently single", "Single", "InRelation"))),
+           da_usage = ifelse(da_usage == "I’ve haven’t used them but I’ve known/heard about them", "NonUser",
+                      ifelse(da_usage == "Never heard of them", "NonUser", "User")), 
+           y_single = ifelse(y_single == "I’m not finding the right person", "cant_find", "doesnt_want"),
+           orientation = ifelse(orientation == "Heterosexual (straight)", "straight",
+              ifelse(orientation == "Bisexual","bi",
+                ifelse(orientation == "Homosexual (gay or lesbian)","gay_lesbian",
+                  ifelse(orientation == "Other","gay_lesbian", orientation)))),
+           pay = ifelse(pay == "They should split the bill","Split",pay),
+           picky = ifelse(picky == "They're equally picky", "Equal", picky),
+           dates = ifelse(dates == "They're equal", "Equal",dates)) # Finally, Renaming the answers to a shorter manageable names.
+
+# Now, we need to work on the apps comparison, it is tricky because we allowed each app to have multiple answers, which means we need to separate the answers, mutate new variables for each platform and convert each description (easy, spend most time on, and use for dating) into 0 & 1. 
+apps1 = dating%>%
+  separate(snap_chat, into = c("snap_chat", "snap1", "snap2"), sep = ",")%>%
+  separate(insta, into = c("insta", "insta1", "insta2"), sep = ",")%>%
+  separate(tiktok, into = c("tiktok", "tik1", "tik2"), sep = ",")%>%
+  separate(tinder, into = c("tinder", "tin1", "tin2"), sep = ",")%>%
+  separate(hinge, into = c("hinge", "hin1", "hin2"), sep = ",")%>%
+  separate(bumble, into = c("bumble", "bum1", "bum2"), sep = ",")
+
+index_apps = is.na(apps1)
+apps1[index_apps] = 0 # this replaces NA with 0 in all the data frame, later we will have to restore NA in some variables as it is better way to indicate that people didn't have an answer for that variable cos they were excluded from answering certain quwestions. For example, if respondents said that they were single, they weren't exposed to "How did you meet your partner?" question and people who responded as "In a relationship" were not exposed to "Why are you single?" question.
+
+
+apps2 = apps1%>%
+  mutate(snap_easy = ifelse(snap_chat == "easy", 1, 
+                            ifelse(snap1 == "easy", 1, 
+                                   ifelse(snap2 == "easy", 1,0))))%>%
+  mutate(snap_time = ifelse(snap_chat == "time", 1, 
+                            ifelse(snap1 == "time", 1, 
+                                   ifelse(snap2 == "time", 1,0))))%>%
+  mutate(snap_dating = ifelse(snap_chat == "dating", 1, 
+                            ifelse(snap1 == "dating", 1, 
+                                   ifelse(snap2 == "dating", 1,0))))%>%
+  mutate(insta_easy = ifelse(insta == "easy", 1, 
+                            ifelse(insta1 == "easy", 1, 
+                                   ifelse(insta2 == "easy", 1,0))))%>%
+  mutate(insta_time = ifelse(insta == "time", 1, 
+                            ifelse(insta1 == "time", 1, 
+                                   ifelse(insta2 == "time", 1,0))))%>%
+  mutate(insta_dating = ifelse(insta == "dating", 1, 
+                            ifelse(insta1 == "dating", 1, 
+                                   ifelse(insta2 == "dating", 1,0))))%>%
+  mutate(tik_easy = ifelse(tiktok == "easy", 1, 
+                            ifelse(tik1 == "easy", 1, 
+                                   ifelse(tik2 == "easy", 1,0))))%>%
+  mutate(tik_time = ifelse(tiktok == "time", 1, 
+                            ifelse(tik1 == "time", 1, 
+                                   ifelse(tik2 == "time", 1,0))))%>%
+  mutate(tik_dating = ifelse(tiktok == "dating", 1, 
+                            ifelse(tik1 == "dating", 1, 
+                                   ifelse(tik2 == "dating", 1,0))))
+
+apps = apps2%>%
+  mutate(tin_easy = ifelse(tinder == "easy", 1, 
+                            ifelse(tin1 == "easy", 1, 
+                                   ifelse(tin2 == "easy", 1,0))))%>%
+  mutate(tin_time = ifelse(tinder == "time", 1, 
+                            ifelse(tin1 == "time", 1, 
+                                   ifelse(tin2 == "time", 1,0))))%>%
+  mutate(tin_dating = ifelse(tinder == "dating", 1, 
+                            ifelse(tin1 == "dating", 1, 
+                                   ifelse(tin2 == "dating", 1,0))))%>%
+  mutate(hin_easy = ifelse(hinge == "easy", 1, 
+                            ifelse(hin1 == "easy", 1, 
+                                   ifelse(hin2 == "easy", 1,0))))%>%
+  mutate(hin_time = ifelse(hinge == "time", 1, 
+                            ifelse(hin1 == "time", 1, 
+                                   ifelse(hin2 == "time", 1,0))))%>%
+  mutate(hin_dating = ifelse(hinge == "dating", 1, 
+                            ifelse(hin1 == "dating", 1, 
+                                   ifelse(hin2 == "dating", 1,0))))%>%
+  mutate(bum_easy = ifelse(bumble == "easy", 1, 
+                            ifelse(bum1 == "easy", 1, 
+                                   ifelse(bum2 == "easy", 1,0))))%>%
+  mutate(bum_time = ifelse(bumble == "time", 1, 
+                            ifelse(bum1 == "time", 1, 
+                                   ifelse(bum2 == "time", 1,0))))%>%
+  mutate(bum_dating = ifelse(bumble == "dating", 1, 
+                            ifelse(bum1 == "dating", 1, 
+                                   ifelse(bum2 == "dating", 1,0))))
+
+dating = apps%>%
+  select(-snap_chat, -snap1, -snap2, -insta, -insta1, -insta2, -tiktok, -tik1, -tik2, -tinder, -tin1, -tin2, -hinge, -hin1, -hin2, -bumble, -bum1, -bum2)%>%
+  mutate(y_single = ifelse(y_single == 0, NA, y_single), met_online = ifelse(met_online == 0, NA,met_online)) # Here we had to restore NA to the questions that the respondents didn't answer as NA is a better way to indicate that respondents didn't answer this question. 
+
+dating = dating%>%
+  mutate(con_level = ifelse(rate_yourself <= 6, "low", "high"))
+
+head(dating) # Exploring the head of the data frame
+#summary(dating) # Exploring the data frame
+#write.csv(dating, file = "dating.csv") # writing a new csv file to be used for analysis. 
+```
+
+
+#### 5.2 Data Exploration
+
+**5.2.1 Summaries of the Data Set**
+
+This is a table that contains some values from the dataset: 
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+# how many respondents
+total_res = nrow(dating)
+# Calculating percentage of female individuals
+total_f = dating%>%
+  filter(gender == "Female")%>%
+  nrow()
+
+# This is the total number of females in the dataset.
+
+total_f_per = total_f*100 / nrow(dating)
+total_f_per = paste0(round(total_f_per, digits = 0), '%')
+
+# This is the percentage of females in the dataset.
+
+# Calculating percentage of male individuals
+total_m = dating%>%
+  filter(gender == "Male")%>%
+  nrow()
+# This is the total number of males in the dataset.
+
+total_m_per = total_m*100 / nrow(dating)
+total_m_per = paste0(round(total_m_per, digits = 0), '%')
+
+# This is the percentage of males in the dataset.
+
+# Calculating percentage of lgbtq individuals
+total_lgbtq = dating%>%
+  filter(orientation == "gay_lesbian" | orientation == "bi")%>%
+  nrow()
+# This is the total number of lgbtq in the dataset.
+
+total_lg_per = total_lgbtq*100 / nrow(dating)
+total_lg_per = paste0(round(total_lg_per, digits = 0), '%')
+# This is the percentage of lgbtq in the dataset.
+
+# Calculating percentage of straight individuals
+total_str8 = dating%>%
+  filter(orientation == "straight")%>%
+  nrow()
+
+# This is the total number of straight in the dataset.
+total_st_per = total_str8*100 / nrow(dating)
+total_st_per = paste0(round(total_st_per, digits = 0), '%')
+
+
+#table(dating$gender)
+#prop.table(table(dating$gender))*100
+
+#xtabs(~gender+rel_status, dating)
+
+Totals = c("Total Responses",
+           "Total Males",
+           "Males Ratio",
+           "Total Females",
+           "Female Ratio",
+           "Total LGBTQ",
+           "LGBTQ Ratio",
+           "Total Straight",
+           "Straight Ratio")
+Values = c(total_res,
+           total_m,
+            total_m_per,
+            total_f,
+            total_f_per,
+            total_lgbtq,
+            total_lg_per,
+            total_str8,
+            total_st_per)
+
+totals_df = data.frame(Totals,Values)
+totals_df%>%
+  gt()%>%
+  cols_width(everything() ~ px(150))%>%
+  opt_align_table_header(align = "left")%>%
+  tab_style(locations = cells_column_labels(), 
+            style = list(cell_fill(color = "#5599FF"), 
+                         cell_text(color = "white")))%>%
+  opt_table_font(font = google_font("Montserrat"), 
+                 weight = 400)
+
+
+```
+
+
+**5.2.2 Gender Distribution** 
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+# Here we explore the gender distribution within our respondents
+p1 = dating%>%
+  ggplot(aes(x = gender, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  labs(x = "Gender", y = "Count")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+p1
+```
+
+61% of our survey respondents are females and 38% males. 
+
+**5.2.3 Sexual Orientation Distribution**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+# Here we explore the sexual orientation distribution within our respondents
+p2 = dating%>%
+  ggplot(aes(x = orientation, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  labs(x = "Sexual Orientation", y = "Count")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+p2
+```
+
+23% of our survey respondents are LGBTQ, what's interesting is that there are much more bisexual females than there are bisexual males.
+
+**5.2.4 Relationship Status**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+# Here we explore the relationship status distribution within our respondents
+p3 = dating%>%
+  filter(gender != "Non-binary")%>%
+  ggplot(aes(x = rel_status, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  labs(x="Relationship Status", y = "Count")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+p3
+```
+
+61% of survey respondents are "In a relationship" vs 39% are "Single", this observation is aligned with the "Romance in America" research numbers where 68% of all adult Americans have been married or in a committed relationships, 26% don't want to be in a relationship, and 7% actively looking for romantic partners.
+(ref: https://www.pewresearch.org/internet/2006/02/13/romance-in-america/#:~:text=47%25%20of%20all%20adult%20Americans,looking%20for%20a%20romantic%20partner.)
+
+**5.2.5 Dating Apps Usage** 
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+# Here we explore the dating app usage within our respondents
+p4 = dating%>%
+  ggplot(aes(x=da_usage))+
+  geom_bar(fill= "Blue", alpha=0.50)+
+  theme_bw()+
+  theme(panel.grid.major=element_blank(), panel.grid.minor = element_blank())+
+  labs(x= "Dating App Usership", y = "Count")
+p4
+```
+
+64% of respondents don't use dating apps.
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+user_f = dating%>%
+  filter(da_usage == "User" & gender == "Female")%>%
+  nrow()*100/total_f
+user_f = round(user_f, digits = 2)
+
+user_m = dating%>%
+  filter(da_usage == "User" & gender == "Male")%>%
+  nrow()*100/total_m
+user_m = round(user_m, digits = 2)
+
+Usership = c("Female Users","Male Users")
+Usership_Percentage = c(user_f, user_m)
+
+usership_by_gender = data.frame(Usership, Usership_Percentage)%>%
+  ggplot(aes(x = Usership, y = Usership_Percentage))+
+  geom_col(fill = "purple", alpha = 0.5)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x= "Dating App Usership", y = "Percentage")# facet_wrap(~Usership)
+
+usership_by_gender
+```
+
+32% of users are females vs 40% males.
+
+### 6. Data Analysis
+
+#### 6.1 Gender-Related Discoveries
+
+**6.1.1 Who should pay for the first date?**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+p5 = dating%>%
+  filter(gender!= "Non-binary")%>%
+  ggplot(aes(x = pay, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  labs(x = "Who should pay?", y = "Count")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+p5  
+```
+
+* Less than 1% of respondents suggested that women should pay the bill of the first date
+
+* The number of men who believed "men should pay" is higher than the number of men who said "they should split the bill"
+
+* There is a surprisingly high percentage (44.3%) of progressive respondents who believed they should split the bill. 
+
+**6.1.2 Who doesn’t want a relationship?**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+p6 = dating%>%
+  filter(rel_status=="Single")%>%
+  ggplot(aes(x = y_single, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  labs(x = "Why are you single?", y = "Count")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+p6 
+```
+
+68% of respondents are struggling to find a partner vs 32% don't want a relationship. Only 2.7% of males don't want a relationship compared to 10% of females. 
+
+**6.1.3 Who finds it easier to match & go on dates?**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+p7 = dating%>%
+  filter(gender != "Non-binary")%>%
+  ggplot(aes(x = dates, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Who finds it easier?", y = "Count")
+p7
+```
+
+Men and women equally agreed that its easier for women to find dates. Women, however, believed that both genders finds it equally easy, where men predominantly believed females having an advantage. 
+
+**6.1.4 Who is more picky while swiping?**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+p8 = dating%>%
+  filter(gender != "Non-binary")%>%
+  ggplot(aes(x = picky, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Who is more picky?", y = "Count")
+p8
+```
+
+50.6% of respondents believed that women are more picky than men while swiping. 
+Women predominantly believed they're equally picky or men are more picky.
+Men, on the other hand, believed that they are the least picky while swiping (4%). 
+
+#### 6.2 Confidence in one's Physical Attractiveness
+
+**6.2.1 How did respondents rated their physical attractiveness?**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+p9 = dating%>%
+  ggplot(aes(x = rate_yourself, fill = gender))+
+  geom_histogram(binwidth = 1, alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Ratings", y = "Count")
+p9
+```
+
+On a scale of 1-10 of how physically attractive our respondents believed they are, a majority of 24% rated themselves 7/10 with a total average rating of 6.9/10, a good modest number on the positive side of the spectrum. A big portion of respondents claim they're a "10", where "10" is described as a swim suit magazine cover top model. 
+
+**6.2.2 Self-rating Averages Comparison**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+xyza = dating%>%
+  filter(orientation == "bi" | orientation == "gay_lesbian")%>%
+  group_by(orientation)%>%
+  summarize(Mean = mean(rate_yourself))
+xyzb = (xyza[1,2]+xyza[2,2])/2
+
+x10c = dating%>%
+  filter(orientation == "straight")%>%
+  group_by(orientation)%>%
+  summarize(Mean = mean(rate_yourself))
+
+x10d = x10c[1,2]+1-1
+
+x11 = dating%>%
+  filter(rel_status == "InRelation")%>%
+  summarize(Mean = mean(rate_yourself))
+
+x11 = x11 + 1 -1
+
+x11b = dating%>%
+  filter(rel_status == "Single")%>%
+  summarize(Mean = mean(rate_yourself))
+x11b = x11b + 1 -1
+
+x13 = dating%>%
+  filter(gender == "Male")%>%
+  summarize(Mean = mean(rate_yourself))
+
+x13 = x13 + 1 -1
+
+x15 = dating%>%
+  filter(gender == "Female")%>%
+  summarize(Mean = mean(rate_yourself))
+
+x15 = x15 + 1 -1
+
+x14 = dating%>%
+  filter(da_usage == "User")%>%
+  summarize(Mean = mean(rate_yourself))
+
+x14 = x14 + 1 -1
+
+x16 = dating%>%
+  filter(rel_status == "InRelation")%>%
+  summarize(Mean = mean(rate_yourself))
+
+x16 = x16 + 1 -1
+
+avg_comparison_df = rbind(xyzb, x10d, x11, x11b, x13, x15, x14, x16) 
+avg_comparison_df%>%
+  mutate("Category" = c("LGBTQ", "Straight", "In-Relationship", "Single","Males", "Females","DatingApp Users", "DatingApp Non-Users"))%>%
+  ggplot(aes(x = reorder(Category, +Mean), y = Mean))+ 
+  geom_col(fill = "blue", alpha = 0.5,stat = "identity")+
+  coord_flip()+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  geom_text(aes(label = round(Mean,digits = 2)), vjust = 0.5)+
+  labs(x = "Category", y = "Avg Rating")
+
+```
+
+The average self rating of LGBTQ respondents is the highest (7.36/10), followed by those who are in a relationship (7.23/10) and dating app non users (7.23/10), where the lowest rating were for Single respondents (6.48/10). 
+
+
+#### 6.3 Favorite Body Types
+
+**6.3.1 Which of the following body types straight women find most attractive?**
+
+```{r echo=FALSE, out.width = "50%"}
+knitr::include_graphics("men_bt.png", error = FALSE)
+```
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+body_type_f = dating%>%
+  filter(gender == "Female", body_types == "Endomorph" | body_types == "Mesomorph" | body_types == "Ectomorph")%>%
+  ggplot(aes(x = body_types))+
+  geom_bar(fill = "Blue", alpha = 0.5)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Body Types", y = "Count")
+body_type_f
+
+#mes_img = readPNG("mesomorph.png")
+
+```
+
+40% of women find the "Mesomorph" body type the most attractive compared to 23% for the "Endomorph" body type. 
+
+**6.3.2 Which of the following body types straight men find most attractive?**
+
+```{r echo=FALSE, out.width = "50%"}
+knitr::include_graphics("women_bt.png", error = FALSE)
+```
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+body_type_m = dating%>%
+  filter(gender == "Male", body_types == "Hour Glass" | body_types == "Inverted Triangle" | body_types == "Oval"| body_types == "Triangle"| body_types == "Rectangle")%>%
+  ggplot(aes(x = body_types))+
+  geom_bar(fill = "Red", alpha = 0.5)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Body Types", y = "Count")
+body_type_m
+
+#hg_img = readPNG("hour_glass.png")
+
+```
+
+33% of men find "Hour Glass" body type the most attractive followed by the "Triangle" body type (27%). 
+
+#### 6.4 Apps Comparison
+
+**6.4.1 Which app is the easiest to use?**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+app_names = c("SnapChat", "Instagram","Tiktok","Tinder","Hinge","Bumble")
+easy_score = 3
+
+app_compare = data.frame(app_names, easy_score)
+
+total_snap_easy = sum(dating$snap_easy)
+total_insta_easy = sum(dating$insta_easy)
+total_tik_easy = sum(dating$tik_easy)
+total_tin_easy = sum(dating$tin_easy)
+total_hin_easy = sum(dating$hin_easy)
+total_bum_easy = sum(dating$bum_easy)
+
+app_compare_easy = app_compare %>%
+  mutate(easy_score = ifelse(app_names == "SnapChat", total_snap_easy, 
+                       ifelse(app_names == "Instagram", total_insta_easy, 
+                        ifelse(app_names == "Tiktok", total_tik_easy,
+                         ifelse(app_names == "Tinder", total_tin_easy,
+                          ifelse(app_names == "Hinge", total_hin_easy,
+                           ifelse(app_names == "Bumble", total_bum_easy, app_names)))))))
+
+easy_score2 = as.integer(app_compare_easy$easy_score)
+
+p13 = app_compare_easy%>%
+  ggplot(aes(x=app_names, y = easy_score2))+
+  geom_col(fill = "Blue", alpha = 0.5)+ 
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Apps", y = "Score")
+  
+p13 
+#dating%>%
+ 
+```
+
+Respondents find Snap Chat the easiest app to use (53%) followed by Instagram (42%).
+
+**6.4.2 Which app students spend most of their time on?**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+total_snap_time = sum(dating$snap_time)
+total_insta_time = sum(dating$insta_time)
+total_tik_time = sum(dating$tik_time)
+total_tin_time = sum(dating$tin_time)
+total_hin_time = sum(dating$hin_time)
+total_bum_time = sum(dating$bum_time)
+
+app_compare_time = app_compare_easy %>%
+  mutate(time_score = ifelse(app_names == "SnapChat", total_snap_time, 
+                       ifelse(app_names == "Instagram", total_insta_time, 
+                        ifelse(app_names == "Tiktok", total_tik_time,
+                         ifelse(app_names == "Tinder", total_tin_time,
+                          ifelse(app_names == "Hinge", total_hin_time,
+                           ifelse(app_names == "Bumble", total_bum_time, app_names)))))))
+
+time_score2 = as.integer(app_compare_time$time_score)
+
+p14 = app_compare_time%>%
+  ggplot(aes(x=app_names, y = time_score2))+geom_col(fill = "Green", alpha = 0.5)+ 
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Apps", y = "Score")
+
+p14
+```
+
+Respondents spent most of their time on Instagram (61.6%) followed by TikTok (53.3%).
+
+**6.4.3 Which dating app is the most popular?** 
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+total_snap_dating = sum(dating$snap_dating)
+total_insta_dating = sum(dating$insta_dating)
+total_tik_dating = sum(dating$tik_dating)
+total_tin_dating = sum(dating$tin_dating)
+total_hin_dating = sum(dating$hin_dating)
+total_bum_dating = sum(dating$bum_dating)
+
+app_compare_dating = app_compare_time %>%
+  mutate(dating_score = ifelse(app_names == "SnapChat", total_snap_dating, 
+                       ifelse(app_names == "Instagram", total_insta_dating, 
+                        ifelse(app_names == "Tiktok", total_tik_dating,
+                         ifelse(app_names == "Tinder", total_tin_dating,
+                          ifelse(app_names == "Hinge", total_hin_dating,
+                           ifelse(app_names == "Bumble", total_bum_dating, app_names)))))))
+
+dating_score2 = as.integer(app_compare_dating$dating_score)
+
+p15 = app_compare_dating%>%
+  ggplot(aes(x=app_names, y = dating_score2))+geom_col(fill = "Red", alpha = 0.5)+ 
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Apps", y = "Score")
+
+p15
+```
+
+Tinder and Bumble are the most popular dating apps (24% each) followed by hinge (19.2%). Instagram and Snap Chat, although they aren't dating apps, are being used for dating by a good number of respondents (10.5%).
+
+**6.4.4 Who likes swiping more?**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+p16 = dating%>%
+  filter(gender!="Non-binary")%>%
+  ggplot(aes(x=enj_swip, fill = gender))+geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Do you enjoy swiping to find a match", y = "Score")
+p16
+```
+
+Majority don't enjoy swiping (73%) but males seem to enjoy swiping slightly more than females (15.3% vs 13.7%).
+
+#### 6.5 Sentiment
+
+**6.5.1 How many met online vs in person?**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+p17 = dating%>%
+  filter(met_online == "Online" | met_online == "Offline")%>%
+  ggplot(aes(x = met_online, fill = da_usage))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "How did you meet?", y = "Score")
+p17
+```
+
+64% of respondents who are in relationship met offline, from those, 30.8% have used dating apps but didn't work for them. On the other hand, from those who met online, around half of them have used dating apps, this means that dating apps are equal to social media when it comes to finding a romantic partner.
+
+**6.5.2 How many recommends dating apps to a friend?**
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+p18 = dating%>%
+  filter(gender != "Non-binary")%>%
+  ggplot(aes(x = rec_friend, fill = gender))+
+  geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Would you recommend dating apps to a friend?", y = "Score")
+p18
+```
+
+61% of respondents don't recommend dating apps to a friend, men, however, recommends them slightly more than women.
+
+**6.5.3 Do dating app users enjoy swiping to find a match?**
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+p20 = dating%>%
+  filter(da_usage == "User")%>%
+  ggplot(aes(x = da_usage, fill = enj_swip))+geom_bar(position = "dodge", alpha = 0.75)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  labs(x = "Dating App Users | Enjoy Swiping", y = "Score")
+p20
+```
+
+Dating app users are evenly split between liking (16.5%) and disliking (18.4%) the act of swiping.
+
+### 7. Dashboard
+
+The dashboard is deployed on the web via the following link:
+https://najafaysal.shinyapps.io/dashboard/#section-overview
+
+### 8. Conclusion
+
+In conclusion, the survey managed to generate a lot of insights related to online dating, consumer behavior of online dating apps, and human psychology in general. Here below is the summary of the key findings:
+
+#### 8.1 Key Findings
+
+* 61% of our survey respondents are females and 39% are males.
+
+* 23% of our survey respondents are LGBTQ, what's interesting is that there are many more bisexual females than there are bisexual males.
+
+* 61% of survey respondents are "In a relationship" vs 39% are "Single", this observation is aligned with the "Romance in America" research numbers where 68% of all adult Americans have been married or in committed relationships, 26% don't want to be in a relationship, and 7% actively looking for romantic partners.
+
+* 64% of respondents don't use dating apps.
+
+* 32% of users are females vs 40% males.
+
+* Less than 1% of respondents suggested that women should pay the bill on the first date. The number of men who believed "men should pay" is higher than the number of men who said, "they should split the bill”. There is a surprisingly high percentage (44.3%) of progressive respondents who believed they should split the bill. 
+
+* 68% of respondents are struggling to find a partner vs 32% doesn't want a relationship. Only 2.7% of males don't want a relationship compared to 10% of females.
+
+* Males and females equally agreed that it's easier for women to find dates. Women believe that both genders find it equally easy, whereas men predominantly believed females have an advantage. 
+
+* Males and females equally agreed that it's easier for women to find dates. Women, however, believed that both genders find it equally easy, whereas men predominantly believed females have an advantage.
+
+* 50.6% of respondents believed that women are pickier than men while swiping. Women predominantly believed they were equally picky or men are pickier. Men, on the other hand, believed that they are the least picky while swiping (4%).
+
+* On a scale of 1-10 of how physically attractive our respondents believed they are, a majority of 24% rated themselves 7/10 with a total average rating of 6.9/10, a good modest number on the positive side of the spectrum. A big portion of respondents claims they're a "10", where "10" is described as a swimsuit magazine cover top model. 
+
+* The average self-rating of LGBTQ respondents is the highest (7.36/10), followed by those who are in a relationship (7.23/10) and dating app nonusers (7.23/10), where the lowest rating was for Single respondents (6.48/10). 
+
+* 40% of women find the "Mesomorph" body type the most attractive compared to 23% for the "Endomorph" body type. 
+
+* 33% of men find the "Hour Glass" body type the most attractive followed by the "Triangle" body type (27%). 
+
+* Respondents find Snap Chat the easiest app to use (53%) followed by Instagram (42%).
+
+* Respondents spent most of their time on Instagram (61.6%) followed by TikTok (53.3%).
+
+* Tinder and Bumble are the most popular dating apps (24% each) followed by Hinge (19.2%). Instagram and Snap Chat, although they aren't dating apps, are being used for dating by a good number of respondents (10.5%).
+
+* Majority don't enjoy swiping (73%) but males seem to enjoy swiping slightly more than females (15.3% vs 13.7%).
+
+* 64% of respondents who are in a relationship met offline, from those, 30.8% have used dating apps that didn't work for them. On the other hand, of those who met online, around half of them have used dating apps, this means that dating apps are equal to social media when it comes to finding a romantic partner.
+
+* 61% of respondents don't recommend dating apps to a friend, men, however, recommend them slightly more than women.
+
+* Dating app users are evenly split between liking (16.5%) and disliking (18.4%) the act of swiping.
+
+
+#### 8.2 Shortcomings
+
+As we took that journey and delved deeply into the data set, we discovered some shortcomings - questions we wished we’d added to the survey and things we could have changed in the structure and format of our questions. For example, one of the main shortcomings of this survey was the fact that there were only two numerical data variables and the rest of them are all categorical. Even the two numerical variables aren’t related whatsoever which makes it impossible for us to create scatter plots, and box plots, as well as apply clustering and regression analysis. In addition, we didn't have the resources to reach more respondents, which will allow us to have more statistically significant and scientific results. 
+
+
+#### 8.3 Business Implications
+
+When it comes to Bumble or the online dating apps industry, here below are some crucial implications: 
+
+* Dating Apps companies already know that males use these apps more than females, and thus you could continue to monetize these apps by targeting male users. It’s similar to nightclubs for example, the more a bar or nightclub attracts females, the more males will flock. 
+
+* Who pays for first dates looks like a hot topic nowadays, dating apps could add this as a feature to check compatibility. Many ladies are being very progressive and demanding equality in terms of who pays the bill and would want men who agree to that equality. Some men on the other hand insist to continue to pay or expect to do so on the first date, so this could be something that hides deeper psychological compatibility that could be used to do the better matching. 
+
+* One important matter that this survey proves is that majority of singles are singles because they can’t find a partner which means that the problem of finding a partner is still a pressing problem in society. People want to find love but can’t find it, and dating apps have to constantly improve to solve such a problem. 
+
+* Not sure what online dating apps could do about the growing number of females who don’t want to be in a relationship. We are assuming that women don’t want relationships because of their bad experiences with men. Thus dating apps could play an additional role in educating men on how to improve their habits with women so women don’t have bad experiences being in a relationship. 
+
+* Probably one of the most important implications of this survey is that it indicates a problem with swiping as the means for finding a partner on dating apps. Most of these apps adopted this activity but people don’t find it tasteful and we could guess why. You would spend so much time shipping on people and you may never get any match. Men get far fewer matches than women and that’s why women are pickier. A lot of men ended up shipping blindly on all profiles just to improve their chances of finding matches. Dating apps companies want users to invest either time or money in these apps so we understand it is in their best interest to make matching harder to obtain, but in terms of effectiveness in finding a partner, swiping is distasteful and it maybe the reason why the general sentiment of dating apps isn’t in favor. 
+
+* When it comes to dating apps' impact on one's self-esteem, it seems that dating apps as well as social media apps make people less confident about their attractiveness. The data shows that people who use dating apps are less confident about their appearances and their attractiveness to the opposite gender. This is mainly because failure to find a match makes people question their self-worth. This is also why people who are in a relationship rated themselves higher than those who are single. Relationships validate someone’s attractiveness. So what does this mean to the dating apps industry? We believe that dating apps' role has to expand to more than just connecting people and should play a role in self-assurance, dating education, and spreading positive self-image.  
+
+* Despite the recent body positivity movement taking place in the western world, our survey data confirms that men who are fit with wide shoulders and muscular bodies are more attractive to women than overweight or skinny men. On the other hand, men appreciate curvy and fit women and not over weight or skinny ones. Implications of this information on dating apps will have to do with the matching algorithms and the ability of the apps to detect body types from the photos someone put on their profiles or making it mandatory for people to display a full body photo or indicate their body type as it plays a major role in attraction. 
+
+* By comparing dating apps to social media, dating app companies could learn a great deal from the leading social media apps. Snapchat is the easiest to use according to our respondents who spent most of their time on Instagram & TikTok. Dating apps could use this information to make their apps easier to use by mimicking Snapchat for example and making them more addictive by mimicking Instagram and TikTok. This doesn’t necessarily be a bad thing, as we may embed a lot of dating coaching content within dating apps and make them easy, addictive and beneficial to society. 
+
+* Finally, the general sentiment toward dating apps isn’t great, and there is great room for improvement to make these apps adopted and appreciated by the masses just like social media has been adopted. Dating app companies need to continually listen to the customers and always find ways to manage between profitability and delivering actual value to their customers by connecting them with the right matches as well as coaching them to become better lovers. 
+
+### 9. References 
+
+* Author, N. (2006, February 13). Romance in America. Pew Research Center: Internet, Science & Tech. https://www.pewresearch.org/internet/2006/02/13/romance-in-america/
+
+* Bumble—Date, Meet, Network Better. (n.d.). Bumble. Retrieved November 29, 2022, from https://bumble.com/
+
+* How Much Does An App Like Bumble Cost? | Shakuro. (n.d.). Retrieved November 29, 2022, from https://shakuro.com/blog/how-much-does-an-app-like-bumble-cost
+
+* Meltzer, M. (n.d.). Online Dating: Match Me If You Can. Consumer Reports. Retrieved November 29, 2022, from https://www.consumerreports.org/dating-relationships/online-dating-guide-match-me-if-you-can/
+
+* Online dating service. (2022). In Wikipedia. https://en.wikipedia.org/w/index.php?title=Online_dating_service&oldid=1115567515
+
+* Online Dating Survey. (n.d.). Google Docs. Retrieved November 29, 2022, from https://docs.google.com/forms/d/e/1FAIpQLSd6oCbZHsIseVfPjwO7IJQ66lMGl7qwpA1cUDvQyBskaDzMWg/viewform?usp=send_form&usp=embed_facebook
+
+* Winter, R. (1997). Teens and Technology. Educational Media International, 34(4), 178–180. https://doi.org/10.1080/0952398970340405
+
+* Winter—1997—Teens and Technology.pdf. (n.d.).
+
